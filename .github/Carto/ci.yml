@@ -1,0 +1,77 @@
+# .github/Carto/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API tests
+    runs-on: ubuntu-latest
+    env:
+      DEMOQA_BASE: ${{ CARTO_SECRETES.DEMOQA_BASE }}
+      PLAYWRIGHT_HTML_REPORT: playwright-report-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - name: Run API tests (no browser)
+        run: npx playwright test --project=api
+      - name: Upload API HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-report
+          path: playwright-report-api
+          if-no-files-found: ignore
+
+  ui:
+    name: UI tests (Chromium + Firefox)
+    runs-on: ubuntu-latest
+    env:
+      CARTO_BASE_URL: ${{ CARTO_SECRETS.CARTO_BASE_URL }}
+      CARTO_LOGIN_URL: ${{ CARTO_SECRETS.CARTO_LOGIN_URL }}
+      CARTO_EMAIL: ${{ CARTO_SECRETS.CARTO_EMAIL }}
+      CARTO_PASSWORD: ${{ CARTO_SECRETS.CARTO_PASSWORD }}
+      CARTO_WORKFLOW_NAME: ${{ CARTO_SECRETS.CARTO_WORKFLOW_NAME }}
+      BASE_COLUMN: ${{ CARTO_SECRETS.BASE_COLUMN }}
+      BASE_VALUE: ${{ CARTO_SECRETS.BASE_VALUE }}
+      MATCHES_TABLE: ${{ CARTO_SECRETS.MATCHES_TABLE }}
+      NONMATCHES_TABLE: ${{ CARTO_SECRETS.NONMATCHES_TABLE }}
+      PLAYWRIGHT_HTML_REPORT: playwright-report-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run UI tests on Chromium + Firefox
+        run: npx playwright test --project=chromium --project=firefox
+      - name: Upload UI HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-report
+          path: playwright-report-ui
+          if-no-files-found: warn
+      - name: Upload traces/results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-traces
+          path: test-results
+          if-no-files-found: ignore
