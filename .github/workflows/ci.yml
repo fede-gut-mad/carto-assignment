@@ -17,7 +17,7 @@ jobs:
     name: API tests
     runs-on: ubuntu-latest
     env:
-      DEMOQA_BASE: ${{ CARTO_SECRETES.DEMOQA_BASE }}
+      DEMOQA_BASE: ${{ secrets.DEMOQA_BASE }}
       PLAYWRIGHT_HTML_REPORT: playwright-report-api
     steps:
       - uses: actions/checkout@v4
@@ -40,15 +40,15 @@ jobs:
     name: UI tests (Chromium + Firefox)
     runs-on: ubuntu-latest
     env:
-      CARTO_BASE_URL: ${{ CARTO_SECRETS.CARTO_BASE_URL }}
-      CARTO_LOGIN_URL: ${{ CARTO_SECRETS.CARTO_LOGIN_URL }}
-      CARTO_EMAIL: ${{ CARTO_SECRETS.CARTO_EMAIL }}
-      CARTO_PASSWORD: ${{ CARTO_SECRETS.CARTO_PASSWORD }}
-      CARTO_WORKFLOW_NAME: ${{ CARTO_SECRETS.CARTO_WORKFLOW_NAME }}
-      BASE_COLUMN: ${{ CARTO_SECRETS.BASE_COLUMN }}
-      BASE_VALUE: ${{ CARTO_SECRETS.BASE_VALUE }}
-      MATCHES_TABLE: ${{ CARTO_SECRETS.MATCHES_TABLE }}
-      NONMATCHES_TABLE: ${{ CARTO_SECRETS.NONMATCHES_TABLE }}
+      CARTO_BASE_URL: ${{ secrets.CARTO_BASE_URL }}
+      CARTO_LOGIN_URL: ${{ secrets.CARTO_LOGIN_URL }}
+      CARTO_EMAIL: ${{ secrets.CARTO_EMAIL }}
+      CARTO_PASSWORD: ${{ secrets.CARTO_PASSWORD }}
+      CARTO_WORKFLOW_NAME: ${{ secrets.CARTO_WORKFLOW_NAME }}
+      BASE_COLUMN: ${{ secrets.BASE_COLUMN }}
+      BASE_VALUE: ${{ secrets.BASE_VALUE }}
+      MATCHES_TABLE: ${{ secrets.MATCHES_TABLE }}
+      NONMATCHES_TABLE: ${{ secrets.NONMATCHES_TABLE }}
       PLAYWRIGHT_HTML_REPORT: playwright-report-ui
     steps:
       - uses: actions/checkout@v4
