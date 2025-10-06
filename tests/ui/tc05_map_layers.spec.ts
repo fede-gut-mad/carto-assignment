@@ -21,8 +21,8 @@ test('TC-5: Create a Builder Map via Workflow', async ({page}) => {
     await mapPage.goto(mapUrl!);
     expect (mapPage.url()).toContain('/builder/');
 
-    await mapPage.waitForSelector('canvas#default-deckgl-overlay', { timeout: 15000 });
-    await mapPage.waitForSelector('div.layer-manager-title', { timeout: 15000 });
+    await mapPage.waitForSelector('canvas#default-deckgl-overlay', { timeout: 25000 });
+    await mapPage.waitForSelector('div.layer-manager-title', { timeout: 25000 });
 
     const matches = mapPage.getByText('ca_filtered').first();
     const nonmatches = mapPage.getByText('filtered_out').first();

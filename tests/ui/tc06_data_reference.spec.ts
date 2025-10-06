@@ -12,7 +12,7 @@ test('TC-6: Data Reference visible in Map', async ({page}) =>{
 
     await login(page);
     await workflow.open();
-    await workflow.openWorkflowByName('TestWorkflow');
+    await workflow.openWorkflowByName(wfName);
     await workflow.runWorkflow();
 
     await workflow.openMapDataTab();
@@ -24,8 +24,8 @@ test('TC-6: Data Reference visible in Map', async ({page}) =>{
     await mapPage.waitForSelector('canvas#default-deckgl-overlay', { timeout: 15000 });
     await mapPage.waitForSelector('div.layer-manager-title', { timeout: 15000 });
 
-    const matches = mapPage.getByText('ca_filtered').first();
-    const nonmatches = mapPage.getByText('filtered_out').first();
+    const matches = mapPage.getByText(MATCHES).first();
+    const nonmatches = mapPage.getByText(NONMATCHES).first();
     
     //Assert datasources are visible
     await expect(matches).toBeVisible();
