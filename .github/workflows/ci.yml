@@ -40,15 +40,17 @@ jobs:
     name: UI tests (Chromium + Firefox)
     runs-on: ubuntu-latest
     env:
-      CARTO_BASE_URL: ${{ env.CARTO_BASE_URL }}
-      CARTO_LOGIN_URL: ${{ env.CARTO_LOGIN_URL }}
       CARTO_EMAIL: ${{ secrets.CARTO_EMAIL }}
       CARTO_PASSWORD: ${{ secrets.CARTO_PASSWORD }}
-      CARTO_WORKFLOW_NAME: ${{ env.CARTO_WORKFLOW_NAME }}
-      BASE_COLUMN: ${{ env.BASE_COLUMN }}
-      BASE_VALUE: ${{ env.BASE_VALUE }}
-      MATCHES_TABLE: ${{ env.MATCHES_TABLE }}
-      NONMATCHES_TABLE: ${{ env.NONMATCHES_TABLE }}
+      CARTO_BASE_URL: https://pinea.app.carto.com
+      CARTO_LOGIN_URL: https://carto.com
+      BASE_FILTER_VALUE: California
+      BASE_FILTER_COLUMN: name
+      CARTO_WORKFLOW_NAME: TestWorkflow
+      DEMOQA_BASE: https://demoqa.com
+      MATCHES_TABLE: ca_filtered
+      NONMATCHES_TABLE: 'filtered_out
+
       PLAYWRIGHT_HTML_REPORT: playwright-report-ui
     steps:
       - uses: actions/checkout@v4
