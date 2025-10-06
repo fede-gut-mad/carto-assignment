@@ -49,7 +49,7 @@ jobs:
       CARTO_WORKFLOW_NAME: TestWorkflow
       DEMOQA_BASE: https://demoqa.com
       MATCHES_TABLE: ca_filtered
-      NONMATCHES_TABLE: 'filtered_out
+      NONMATCHES_TABLE: filtered_out
 
       PLAYWRIGHT_HTML_REPORT: playwright-report-ui
     steps:
