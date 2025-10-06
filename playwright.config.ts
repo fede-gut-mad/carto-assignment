@@ -10,13 +10,9 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   workers: 1,
 
-  // Login once before all tests; saves storageState.json
-  // globalSetup: './global-setup.ts',
-
   use: {
     baseURL: process.env.CARTO_BASE_URL || 'https://app.carto.com',
-    storageState: undefined,
-    trace:'retain-on-failure',
+    trace:  'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     headless: true,
@@ -42,9 +38,7 @@ export default defineConfig({
     { 
       name: 'api',      
       testDir: 'tests/api', 
-      use: { 
-        storageState: undefined 
-      } 
+      use: {} 
     },
   ],
 });

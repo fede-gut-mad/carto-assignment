@@ -21,7 +21,7 @@ test('TC-6: Data Reference visible in Map', async ({page}) =>{
     const mapPage = workflow.currentPage;
     await mapPage.goto(mapUrl!);
 
-    await mapPage.waitForSelector('canvas#default-deckgl-overlay', { timeout: 15000 });
+    await mapPage.waitForSelector('div#accessible-map-container', { timeout: 15000 });
     await mapPage.waitForSelector('div.layer-manager-title', { timeout: 15000 });
 
     const matches = mapPage.getByText(MATCHES).first();
