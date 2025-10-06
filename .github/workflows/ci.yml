@@ -1,4 +1,4 @@
-# .github/Carto/ci.yml
+# .github/workflows/ci.yml
 name: CI
 
 on:
@@ -40,15 +40,15 @@ jobs:
     name: UI tests (Chromium + Firefox)
     runs-on: ubuntu-latest
     env:
-      CARTO_BASE_URL: ${{ secrets.CARTO_BASE_URL }}
-      CARTO_LOGIN_URL: ${{ secrets.CARTO_LOGIN_URL }}
+      CARTO_BASE_URL: ${{ env.CARTO_BASE_URL }}
+      CARTO_LOGIN_URL: ${{ env.CARTO_LOGIN_URL }}
       CARTO_EMAIL: ${{ secrets.CARTO_EMAIL }}
       CARTO_PASSWORD: ${{ secrets.CARTO_PASSWORD }}
-      CARTO_WORKFLOW_NAME: ${{ secrets.CARTO_WORKFLOW_NAME }}
-      BASE_COLUMN: ${{ secrets.BASE_COLUMN }}
-      BASE_VALUE: ${{ secrets.BASE_VALUE }}
-      MATCHES_TABLE: ${{ secrets.MATCHES_TABLE }}
-      NONMATCHES_TABLE: ${{ secrets.NONMATCHES_TABLE }}
+      CARTO_WORKFLOW_NAME: ${{ env.CARTO_WORKFLOW_NAME }}
+      BASE_COLUMN: ${{ env.BASE_COLUMN }}
+      BASE_VALUE: ${{ env.BASE_VALUE }}
+      MATCHES_TABLE: ${{ env.MATCHES_TABLE }}
+      NONMATCHES_TABLE: ${{ env.NONMATCHES_TABLE }}
       PLAYWRIGHT_HTML_REPORT: playwright-report-ui
     steps:
       - uses: actions/checkout@v4
